@@ -1,0 +1,29 @@
+<div class="d-flex">
+    <div class="flex-grow-1">
+        <a [routerLink]="'/ticket/' + ticket.id">{{ ticket.description }}</a>
+    </div>
+    <div class="mr-3" [formGroup]="assigneeForm">
+        <select name="userId" class="form-control" formControlName="assigneeId">
+            <option [value]="null">--Assign User--</option>
+            <option *ngFor="let user of users" [value]="user.id">{{
+                user.name
+            }}</option>
+        </select>
+    </div>
+    <div>
+        <button
+            *ngIf="ticket.completed === false"
+            class="btn btn-secondary btn-sm"
+            (click)="completeTicket($event)"
+        >
+            Complete
+        </button>
+        <button
+            *ngIf="ticket.completed === true"
+            class="btn btn-secondary btn-sm"
+            (click)="reopenTicket($event)"
+        >
+            Reopen
+        </button>
+    </div>
+</div>

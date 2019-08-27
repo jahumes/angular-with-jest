@@ -1,0 +1,107 @@
+<h2>Tickets</h2>
+
+<ul class="list-group">
+    <li class="list-group-item" [formGroup]="newTicketForm">
+        <div class="form-group row">
+            <label for="addTicket" class="col-sm-2 col-form-label"
+                >Add Ticket</label
+            >
+            <div class="col-sm-10">
+                <div class="input-group">
+                    <input
+                        id="addTicket"
+                        type="text"
+                        class="form-control"
+                        formControlName="description"
+                        placeholder="Ticket Description"
+                        aria-label="Recipient's username"
+                        aria-describedby="button-addon2"
+                    />
+                    <div class="input-group-append">
+                        <button
+                            class="btn btn-primary"
+                            (click)="createTicket($event)"
+                            [disabled]="newTicketForm.invalid"
+                            type="button"
+                            id="button-addon2"
+                        >
+                            Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item" [formGroup]="searchFilterForm">
+        <div class="form-inline">
+            <select
+                name="userId"
+                class="form-control mr-3"
+                formControlName="userId"
+            >
+                <option [value]="null">All Users</option>
+                <option *ngFor="let user of users$ | async" [value]="user.id">{{
+                    user.name
+                }}</option>
+            </select>
+            <input
+                type="text"
+                placeholder="Search by description"
+                formControlName="query"
+                class="form-control mr-3"
+            />
+            <div class="form-check form-check-inline">
+                <input
+                    class="form-check-input"
+                    type="radio"
+                    formControlName="completed"
+                    id="open"
+                    [value]="false"
+                />
+                <label class="form-check-label" for="open">Open</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input
+                    class="form-check-input"
+                    type="radio"
+                    formControlName="completed"
+                    id="completed"
+                    [value]="true"
+                />
+                <label class="form-check-label" for="completed"
+                    >Completed</label
+                >
+            </div>
+            <div class="form-check form-check-inline">
+                <input
+                    class="form-check-input"
+                    type="radio"
+                    formControlName="completed"
+                    id="all"
+                    [value]="'all'"
+                />
+                <label class="form-check-label" for="all">All</label>
+            </div>
+            <button
+                (click)="resetForm($event)"
+                class="btn btn-outline-secondary"
+            >
+                Reset
+            </button>
+        </div>
+    </li>
+    <ng-container *ngIf="tickets$ | async as tickets; else loading">
+        <li class="list-group-item" *ngFor="let ticket of tickets">
+            <app-ticket-list-item
+                [ticket]="ticket"
+                [users]="users$ | async"
+            ></app-ticket-list-item>
+        </li>
+    </ng-container>
+</ul>
+
+<ng-template #loading>
+    <li class="list-group-item">
+        Loading...
+    </li>
+</ng-template>
