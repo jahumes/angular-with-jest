@@ -15,14 +15,21 @@ describe("TicketListPageComponent", () => {
     let ticketFacade: any;
 
     beforeEach(async(() => {
-        ticketFacade = jasmine.createSpyObj("TicketFacadeService", [
-            "completeTicket",
-            "getTickets",
-            "addTicket"
-        ]);
-        ticketFacade.tickets$ = new Subject();
-        userFacade = jasmine.createSpyObj("UserFacadeService", ["getUsers"]);
-        userFacade.users$ = new Subject();
+        ticketFacade = {
+            completeTicket: jest.fn(),
+            getTickets: jest.fn(),
+            addTicket: jest.fn(),
+            getCurrentFilter: jest.fn().mockReturnValue({
+                userId: null,
+                query: "",
+                completed: false
+            }),
+            tickets$: new Subject()
+        };
+        userFacade = {
+            getUsers: jest.fn(),
+            users$: new Subject()
+        };
         TestBed.configureTestingModule({
             declarations: [TicketListPageComponent],
             imports: [RouterTestingModule, ReactiveFormsModule],

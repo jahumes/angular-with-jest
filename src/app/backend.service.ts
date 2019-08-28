@@ -7,23 +7,25 @@ import { delay, tap } from "rxjs/operators";
  * It has some intentional errors that you might have to fix.
  */
 
-export type User = {
+export interface User {
     id: number;
     name: string;
-};
+}
 
-export type Ticket = {
+export interface Ticket {
     id: number;
     description: string;
     assigneeId: number;
     completed: boolean;
-};
+}
 
 function randomDelay() {
     return Math.random() * 100;
 }
 
-@Injectable()
+@Injectable({
+    providedIn: "root"
+})
 export class BackendService {
     storedTickets: Ticket[] = [
         {

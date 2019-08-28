@@ -15,12 +15,14 @@ describe("TicketPageComponent", () => {
     let ticketFacade: any;
 
     beforeEach(async(() => {
-        ticketFacade = jasmine.createSpyObj("TicketFacadeService", [
-            "getTicket"
-        ]);
-        ticketFacade.currentTicket$ = new Subject();
-        userFacade = jasmine.createSpyObj("UserFacadeService", ["getUsers"]);
-        userFacade.users$ = new Subject();
+        ticketFacade = {
+            getTicket: jest.fn(),
+            currentTicket$: new Subject()
+        };
+        userFacade = {
+            getUsers: jest.fn(),
+            users$: new Subject()
+        };
         TestBed.configureTestingModule({
             declarations: [TicketPageComponent],
             imports: [ReactiveFormsModule, RouterTestingModule],

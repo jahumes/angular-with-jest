@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TicketListItemComponent should have a Complete button if the ticket is open and Reopen if the ticket is complete 1`] = `
+<app-ticket-list-item
+  _ticketFacade={[Function Object]}
+  assigneeForm={[Function FormGroup]}
+  ticket={[Function Object]}
+>
+  <div
+    class="d-flex"
+  >
+    <div
+      class="flex-grow-1"
+    >
+      <a
+        href="/ticket/1"
+        ng-reflect-router-link="/ticket/1"
+      >
+        description
+      </a>
+    </div>
+    <div
+      class="mr-3 ng-untouched ng-pristine ng-valid"
+      ng-reflect-form="[object Object]"
+    >
+      <select
+        class="form-control ng-untouched ng-pristine ng-valid"
+        formcontrolname="assigneeId"
+        name="userId"
+        ng-reflect-name="assigneeId"
+      >
+        <option
+          value="null"
+        >
+          --Assign User--
+        </option>
+        
+      </select>
+    </div>
+    <div>
+      
+      <button
+        class="btn btn-secondary btn-sm"
+      >
+         Complete 
+      </button>
+      
+    </div>
+  </div>
+</app-ticket-list-item>
+`;
+
+exports[`TicketListItemComponent should have a Complete button if the ticket is open and Reopen if the ticket is complete 2`] = `
+<app-ticket-list-item
+  _ticketFacade={[Function Object]}
+  assigneeForm={[Function FormGroup]}
+  ticket={[Function Object]}
+>
+  <div
+    class="d-flex"
+  >
+    <div
+      class="flex-grow-1"
+    >
+      <a
+        href="/ticket/1"
+        ng-reflect-router-link="/ticket/1"
+      >
+        description
+      </a>
+    </div>
+    <div
+      class="mr-3 ng-untouched ng-pristine ng-valid"
+      ng-reflect-form="[object Object]"
+    >
+      <select
+        class="form-control ng-untouched ng-pristine ng-valid"
+        formcontrolname="assigneeId"
+        name="userId"
+        ng-reflect-name="assigneeId"
+      >
+        <option
+          value="null"
+        >
+          --Assign User--
+        </option>
+        
+      </select>
+    </div>
+    <div>
+      
+      
+      <button
+        class="btn btn-secondary btn-sm"
+      >
+         Reopen 
+      </button>
+    </div>
+  </div>
+</app-ticket-list-item>
+`;

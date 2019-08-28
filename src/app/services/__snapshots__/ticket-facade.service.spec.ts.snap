@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TicketFacadeService getting tickets filtering should filter tickets based on the user id, query for the description, and whether it is completed 1`] = `
+Array [
+  Object {
+    "assigneeId": 1,
+    "completed": true,
+    "description": "Test Description 4",
+    "id": 3,
+  },
+]
+`;
+
+exports[`TicketFacadeService getting tickets filtering should filter tickets based on the user id, query for the description, and whether it is completed 2`] = `
+Array [
+  Object {
+    "assigneeId": 2,
+    "completed": false,
+    "description": "Custom Search",
+    "id": 5,
+  },
+]
+`;
+
+exports[`TicketFacadeService getting tickets filtering should filter tickets based on the user id, query for the description, and whether it is completed 3`] = `
+Array [
+  Object {
+    "assigneeId": 2,
+    "completed": false,
+    "description": "Test Description 5",
+    "id": 4,
+  },
+  Object {
+    "assigneeId": 2,
+    "completed": false,
+    "description": "Custom Search",
+    "id": 5,
+  },
+]
+`;

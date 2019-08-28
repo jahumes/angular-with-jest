@@ -7,14 +7,22 @@ describe("TicketFacadeService", () => {
     let service: TicketFacadeService;
     let backendService: any;
     beforeEach(() => {
-        backendService = jasmine.createSpyObj("BackendService", [
-            "tickets",
-            "ticket",
-            "newTicket",
-            "complete",
-            "reopenTicket",
-            "assign"
-        ]);
+        // backendService = jasmine.createSpyObj("BackendService", [
+        //     "tickets",
+        //     "ticket",
+        //     "newTicket",
+        //     "complete",
+        //     "reopenTicket",
+        //     "assign"
+        // ]);
+        backendService = {
+            tickets: jest.fn(),
+            ticket: jest.fn(),
+            newTicket: jest.fn(),
+            complete: jest.fn(),
+            reopenTicket: jest.fn(),
+            assign: jest.fn()
+        };
         // service = new TicketFacadeService(backendService);
         TestBed.configureTestingModule({
             providers: [
@@ -31,10 +39,10 @@ describe("TicketFacadeService", () => {
         let ticketsSubject: Subject<Ticket[]>;
         beforeEach(() => {
             ticketsSubject = new Subject();
-            backendService.tickets.and.returnValue(ticketsSubject);
+            backendService.tickets.mockReturnValue(ticketsSubject);
         });
         it("should get tickets based on search filter and the tickets returned from the backend", () => {
-            const spy = jasmine.createSpy();
+            const spy = jest.fn();
             const tickets: Ticket[] = [
                 {
                     id: 1,
@@ -99,7 +107,7 @@ describe("TicketFacadeService", () => {
                 ];
             });
             it("should return all tickets by default", () => {
-                let spy = jasmine.createSpy();
+                let spy = jest.fn();
 
                 service.tickets$.subscribe(spy);
                 service.getTickets();
@@ -107,10 +115,9 @@ describe("TicketFacadeService", () => {
                 ticketsSubject.next(tickets);
 
                 expect(spy).toHaveBeenCalledWith(tickets);
-                spy.calls.reset();
             });
             it("should return all tickets if the completed flag in the search is set to the string all", () => {
-                let spy = jasmine.createSpy();
+                let spy = jest.fn();
 
                 service.tickets$.subscribe(spy);
                 service.searchTickets({
@@ -123,10 +130,9 @@ describe("TicketFacadeService", () => {
                 ticketsSubject.next(tickets);
 
                 expect(spy).toHaveBeenCalledWith(tickets);
-                spy.calls.reset();
             });
             it("should filter tickets based on the user id, query for the description, and whether it is completed", () => {
-                let spy = jasmine.createSpy();
+                let spy = jest.fn();
 
                 service.tickets$.subscribe(spy);
                 service.getTickets();
@@ -134,31 +140,31 @@ describe("TicketFacadeService", () => {
                 ticketsSubject.next(tickets);
 
                 expect(spy).toHaveBeenCalledWith(tickets);
-                spy.calls.reset();
+                spy.mockClear();
 
                 service.searchTickets({
                     query: null,
                     userId: 1,
                     completed: true
                 });
-                expect(spy).toHaveBeenCalledWith([tickets[3]]);
-                spy.calls.reset();
+                expect(spy.mock.calls[0][0]).toMatchSnapshot();
+                spy.mockClear();
 
                 service.searchTickets({
                     query: "Custom",
                     userId: null,
                     completed: false
                 });
-                expect(spy).toHaveBeenCalledWith([tickets[5]]);
-                spy.calls.reset();
+                expect(spy.mock.calls[0][0]).toMatchSnapshot();
+                spy.mockClear();
 
                 service.searchTickets({
                     query: "",
                     userId: 2,
                     completed: false
                 });
-                expect(spy).toHaveBeenCalledWith([tickets[4], tickets[5]]);
-                spy.calls.reset();
+                expect(spy.mock.calls[0][0]).toMatchSnapshot();
+                spy.mockClear();
             });
         });
     });

@@ -11,9 +11,9 @@ describe("TicketListItemComponent", () => {
     let ticketFacade: any;
 
     beforeEach(async(() => {
-        ticketFacade = jasmine.createSpyObj("TicketFacadeService", [
-            "completeTicket"
-        ]);
+        ticketFacade = {
+            completeTicket: jest.fn()
+        };
         TestBed.configureTestingModule({
             declarations: [TicketListItemComponent],
             imports: [RouterTestingModule, ReactiveFormsModule],
@@ -43,14 +43,12 @@ describe("TicketListItemComponent", () => {
     });
 
     it("should have a Complete button if the ticket is open and Reopen if the ticket is complete", () => {
-        let button = fixture.nativeElement.querySelector("button");
-        expect(button.textContent).toEqual(" Complete ");
+        expect(fixture).toMatchSnapshot();
 
         component.ticket.completed = true;
 
         fixture.detectChanges();
 
-        button = fixture.nativeElement.querySelector("button");
-        expect(button.textContent).toEqual(" Reopen ");
+        expect(fixture).toMatchSnapshot();
     });
 });

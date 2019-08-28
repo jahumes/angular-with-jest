@@ -37,4 +37,5 @@ describe("AppComponent", () => {
     //         "Welcome to app!"
     //     );
     // }));
+    it("should be awesome", () => {});
 });
