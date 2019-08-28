@@ -18,8 +18,14 @@ describe("TicketListPageComponent", () => {
         ticketFacade = jasmine.createSpyObj("TicketFacadeService", [
             "completeTicket",
             "getTickets",
-            "addTicket"
+            "addTicket",
+            "getCurrentFilter"
         ]);
+        ticketFacade.getCurrentFilter.and.returnValue({
+            userId: null,
+            query: null,
+            completed: false
+        });
         ticketFacade.tickets$ = new Subject();
         userFacade = jasmine.createSpyObj("UserFacadeService", ["getUsers"]);
         userFacade.users$ = new Subject();
